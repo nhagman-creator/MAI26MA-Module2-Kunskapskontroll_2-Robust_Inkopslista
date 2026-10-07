@@ -1,15 +1,15 @@
 // Holds the items and takes care of loading and saving them.
 class ShoppingList
 {
-    private List<Item> items = new List<Item>();
-    private string path;
+    private List<Item> items = new List<Item>();    //private field in the ShoppingList object. Used to store Item objects (that contain name and price fields). Set by the Add method
+    private string path;    //private field that is set by the constructor 
 
     public ShoppingList(string path)
     {
-        this.path = path;
+        this.path = path;   //Constructor accept the path parameter. The argument "path" is defined for each ShoppingList object that is created, and stored in the private field "path" (or this.path)
     }
 
-    public void Add(Item item)
+    public void Add(Item item)  //method used to make changes to the private "items" field (the actual shopping list)
     {
         items.Add(item);
     }
@@ -81,13 +81,13 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
+        string text = File.ReadAllText(path);   //Opens, reads the file, save data as string, closes the file. This method accepts a parameter "path". When the method is called in i.e. Program.cs, the argument (relative file-path) is specified. 
+        string[] lines = text.Split('\n');      //the Split function scans through the string in search for the argument (new line character). The string before a new line character is stored and indexed in the "lines" array. 
 
         foreach (string line in lines)
         {
-            string[] parts = line.Split(';');
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
+            string[] parts = line.Split(';');   //split on argument ";" and remove it. Save each element as they appear and index them in the array "parts". Pattern: price item 1 (index 0), item 1 (index 1), price item 2 (index 2), item 2 (index 3), etc..
+            items.Add(new Item(parts[1], int.Parse(parts[0]))); //create items objects with "parts" arguments (index 0, index 1)
         }
     }
 }
