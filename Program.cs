@@ -1,4 +1,6 @@
-ShoppingList list = new ShoppingList("items.txt"); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
+String path = @"C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\items.txt";
+
+ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
 list.Load(); //First the ShoppingList method "Load()" is called, its purpose is to read the external text file containing unformatted items data to be added to the object shoppinglist
 
 while (true) //Main loop that will be true as long as the program is running (or as long as option 5 has not been choosen)
