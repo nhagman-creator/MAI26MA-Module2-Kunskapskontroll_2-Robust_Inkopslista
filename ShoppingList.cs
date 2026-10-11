@@ -82,7 +82,7 @@ class ShoppingList
     public void Load()
     {
         string text = File.ReadAllText(path);   //Opens, reads the file, save data as string, closes the file. This method accepts a parameter "path". When the method is called in i.e. Program.cs, the argument (relative file-path) is specified. 
-        string[] lines = text.Split('\n');      //the Split function scans through the string in search for the argument (new line character). The string before a new line character is stored and indexed in the "lines" array. 
+        string[] lines = text.Split("\r\n");      //the Split function scans through the string in search for the argument (new line character). The string before a new line character is stored and indexed in the "lines" array. 
 
         foreach (string line in lines)
         {

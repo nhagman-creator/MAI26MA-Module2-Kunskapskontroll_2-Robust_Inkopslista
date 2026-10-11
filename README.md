@@ -52,7 +52,7 @@ An unhandled exception of type 'System.IO.FileNotFoundException' occurred in Sys
 **How to replicate error 1:**\
 -start the program in debug mode - F5
 
-**Patch:\
+**Patch:**\
 By providing the full path to "items.cs" as argument to Shoppinglist (instead of the original relative path).
 
 Note: This error does not seem to be critical and it appears only during debugging mode. At the time of writing it is not clear if it is a debugger-artifact. This is however an unexpected behaviour and by adhering to a good developer coding practise, this potential problem has been patched. Also, this error makes prevents using the debugger to enter the shoppinglist.load() method, and makes it hard to access the values within the foreach loop. After fixing this debugger induced error it was possible to see that windows introduce a "\r" in addition to a newline character. The \r is not split away, and it is kept behind all item names (except the last one in the list), which results in Error 8 below. 
@@ -66,6 +66,9 @@ Unhandled exception. System.IndexOutOfRangeException: Index was outside the boun
 **How to replicate the error 2:**\
 -start the program: dotnet run
 
+**Patch:**\
+
+
 ### Error 3 message - Invalid character in menu-choice
 Unhandled exception. System.FormatException: The input string 'b' was not in a correct format.
    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
@@ -75,6 +78,8 @@ Unhandled exception. System.FormatException: The input string 'b' was not in a c
 **How to replicate error 3:**\
 -start the program: dotnet run
 -Try makea  menu-choice, key in any invalid character that is not a number (including null)
+
+**Patch:**\
 
 ### Error 4 message - Removal of non-existing item (numeric character)
 Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
@@ -87,6 +92,8 @@ Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
 -Choose menu-option 2 to remove an item
 -Choose a number that does not exist
 
+**Patch:**\
+
 ### Error 5 message - Removal of non-existing item (non-numeric character or null)
 Unhandled exception. System.FormatException: The input string '' was not in a correct format.
    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
@@ -97,6 +104,8 @@ Unhandled exception. System.FormatException: The input string '' was not in a co
 -start the program: dotnet run
 -Choose menu-option 2 to remove an item
 -Choose a non-numeric character (including null)
+
+**Patch:**\
 
 ### Error 6 - Crash upon non-existing filename "items.txt"
 Unhandled exception. System.IO.FileNotFoundException: Could not find file 'C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\items.txt'.
@@ -114,14 +123,28 @@ File name: 'C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS stu
 -change the name of items.txt file
 -start the program: dotnet run
 
-### Error 7 - Incomplete summation of Total costs
-No error message, and not system crach - but the functionality is compromised due to incomplete summation of the total costs. It is clear that the "Totalt" field with the total sum of costs show to low value. When inspecting the code (public int Total() method in the class ShoppingList), it is clear that index 0 (item 1 in the list) has been excluded from the total sum.
+**Patch:**\
 
-**How to replicate error 6:**\
+### Error 7 - Incomplete summation of Total costs
+No error message, and not system crash - but the functionality is compromised due to incomplete summation of the total costs. It is clear that the "Totalt" field with the total sum of costs show to low value. When inspecting the code (public int Total() method in the class ShoppingList), it is clear that index 0 (item 1 in the list) has been excluded from the total sum.
+
+**How to replicate error 7:**\
 -start the program: dotnet run
 
-### Error 8 - Invicible items in the list
+**Patch:**\
 
+### Error 8 - Invicible items in the list
+No error message, and no system crash - but this bugg causes invicible row number and item name for all but the last item in the list. Caused by splitting on new Line Character (\n) in the ShoppingList.Load() method. In Windows, a row with text is ended with a Carriage Return (\r) together with a New Line character. Thus, splitting on new line character only will leave the Carriage Return after each item, causing all but the last one to appear as hidden when being printed to the console.
+
+**How to replicate error 8:**\
+-start the program: dotnet run
+
+**Patch:**\
+Changed to split on "\r\n" instead of only on \n
 
 ### Error 9 - Possible to save null or white-space items
 
+**How to replicate error 9:**\
+-start the program: dotnet run
+
+**Patch:**\
