@@ -81,13 +81,17 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
-        string text = File.ReadAllText(path);   //Opens, reads the file, save data as string, closes the file. This method accepts a parameter "path". When the method is called in i.e. Program.cs, the argument (relative file-path) is specified. 
-        string[] lines = text.Split("\r\n");      //the Split function scans through the string in search for the argument (new line character). The string before a new line character is stored and indexed in the "lines" array. 
+        string fullText = File.ReadAllText(path);//Opens, reads the file, save data as string, closes the file. This method accepts a parameter "path". When the method is called in i.e. Program.cs, the argument (relative file-path) is specified. 
 
-        foreach (string line in lines)
+        string[] allLines = fullText.Split("\r\n");      //the Split function scans through the string in search for the argument (\r\n). The string before a "\r\n" expression is stored and indexed in the "allLines" array. 
+
+        foreach (string line in allLines)
         {
-            string[] parts = line.Split(';');   //split on argument ";" and remove it. Save each element as they appear and index them in the array "parts". Pattern: price item 1 (index 0), item 1 (index 1), price item 2 (index 2), item 2 (index 3), etc..
-            items.Add(new Item(parts[1], int.Parse(parts[0]))); //create items objects with "parts" arguments (index 0, index 1)
+            if (string.IsNullOrWhiteSpace(line)) continue;   //skip empty lines
+            string[] cleanParts = line.Trim().Split(';');
+            if (cleanParts.Length < 2) continue; //skip any other unexpected format that does not result in an item paired with a price  
+
+            items.Add(new Item(cleanParts[1], int.Parse(cleanParts[0]))); //create items objects with "parts" arguments (index 0, index 1)
         }
     }
 }

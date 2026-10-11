@@ -64,10 +64,11 @@ Unhandled exception. System.IndexOutOfRangeException: Index was outside the boun
    at Program.<Main>$(String[] args) in C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\Program.cs:line 2
 
 **How to replicate the error 2:**\
+-add preceeding/trailing whitespace or a new blank row(s) to the items.txt file
 -start the program: dotnet run
 
 **Patch:**\
-
+The trailing blankline in items.txt cause an error when the program expects to read a new line containing an item-name and a price separated by ";". This has been fixed by ignoring IsNullOrWhiteSpace lines. The ShoppingList.Load() method has also been upgraded to be more robust by trimming for preceeding and trailing whitespace for item names and price, and by skipping any other rows that does not contain (split) into an item and a price.
 
 ### Error 3 message - Invalid character in menu-choice
 Unhandled exception. System.FormatException: The input string 'b' was not in a correct format.
