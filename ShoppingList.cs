@@ -25,7 +25,7 @@ class ShoppingList
     {
         int sum = 0;
 
-        for (int i = 1; i < items.Count; i++)
+        for (int i = 1; i < items.Count; i++) //skipping index 0, merchandise 1 is not added to the total
         {
             sum += items[i].Price;
         }

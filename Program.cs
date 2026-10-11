@@ -1,4 +1,4 @@
-String path = @"C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\items.txt";
+String path = @"C:\VScode\Kunskapskontroll 2\items.txt";
 
 ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
 list.Load(); //First the ShoppingList method "Load()" is called, its purpose is to read the external text file containing unformatted items data to be added to the object shoppinglist
@@ -29,7 +29,7 @@ while (true) //Main loop that will be true as long as the program is running (or
     {
         Console.Write("Nummer: ");
         int number = int.Parse(Console.ReadLine());
-        list.RemoveAt(number);                          //Note - parameter number and list index might be incongruent (list nr - 1 = index)
+        list.RemoveAt(number);                          //Note - parameter nummer and list index might be incongruent (list nr - 1 = index)
     }
     else if (choice == 3)
     {
