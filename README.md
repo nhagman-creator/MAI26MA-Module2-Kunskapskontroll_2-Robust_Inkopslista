@@ -81,6 +81,7 @@ Unhandled exception. System.FormatException: The input string 'b' was not in a c
 -Try makea  menu-choice, key in any invalid character that is not a number (including null)
 
 **Patch:**\
+Code updated for proactive check of valid integer (int.Try.Parse) or valid range of numbers (1-5)
 
 ### Error 4 message - Removal of non-existing item (numeric character)
 Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
@@ -134,7 +135,7 @@ No error message, and not system crash - but the functionality is compromised du
 
 **Patch:**\
 
-### Error 8 - Invicible items in the list
+### Error 8 - Invisible items in the list
 No error message, and no system crash - but this bugg causes invicible row number and item name for all but the last item in the list. Caused by splitting on new Line Character (\n) in the ShoppingList.Load() method. In Windows, a row with text is ended with a Carriage Return (\r) together with a New Line character. Thus, splitting on new line character only will leave the Carriage Return after each item, causing all but the last one to appear as hidden when being printed to the console.
 
 **How to replicate error 8:**\

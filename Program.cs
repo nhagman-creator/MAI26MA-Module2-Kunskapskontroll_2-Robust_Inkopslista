@@ -1,9 +1,14 @@
+using System.Xml.Serialization;
+
 String path = @"C:\VScode\Kunskapskontroll 2\items.txt";
 
 ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
 list.Load(); //First the ShoppingList method "Load()" is called, its purpose is to read the external text file containing unformatted items data to be added to the object shoppinglist
 
-while (true) //Main loop that will be true as long as the program is running (or as long as option 5 has not been choosen)
+int choice;
+bool invalidChoice = true;
+
+do
 {
     Console.WriteLine();
     list.Print();
@@ -15,9 +20,13 @@ while (true) //Main loop that will be true as long as the program is running (or
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
-
-    if (choice == 1)
+    //Test for valid input, integer between 1 and 5
+    if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
+    {
+        Console.WriteLine("______________________________________________________");
+        Console.WriteLine("Invalid choice, choose a valid number");
+    }
+    else if (choice == 1)
     {
         Console.Write("Namn: ");
         string name = Console.ReadLine();
@@ -54,4 +63,4 @@ while (true) //Main loop that will be true as long as the program is running (or
     {
         break;
     }
-}
+} while (invalidChoice); //test for user input integer, and for valid range (1 - 5)
