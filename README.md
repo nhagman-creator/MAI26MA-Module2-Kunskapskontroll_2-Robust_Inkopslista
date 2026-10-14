@@ -109,6 +109,7 @@ Unhandled exception. System.FormatException: The input string '' was not in a co
 -Choose a non-numeric character (including null)
 
 **Patch 5:**\
+Updated together with patch 4.
 
 ### Error 6 - Crash upon non-existing filename "items.txt"
 Unhandled exception. System.IO.FileNotFoundException: Could not find file 'C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\items.txt'.
