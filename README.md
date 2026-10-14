@@ -169,6 +169,7 @@ Changed to split on "\r\n" instead of only on \n
 -start the program: dotnet run
 
 **Patch:**\
+Find item is now case-insensitive (added string.ToLower() on both sides of the comparison)
 
 ### Error 11 - Not possible to find similar items with the same name (but different prices)
 
