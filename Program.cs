@@ -44,6 +44,7 @@ do
         }
 
         Console.Write("Pris: ");
+        //Check for invalid input characters (non-numeric)
         int validatedPrice = 0;
         while (!CheckInputFunctions.checkInputIsInteger(out validatedPrice))
         {
@@ -53,13 +54,29 @@ do
 
         Console.WriteLine($"Vill du lägga till {validatedName} - {validatedPrice} till listan? (y/n)");
         string validatedAnswer = "";
+
+        //call generic function that ask for user confirmation (yes or no)
         while (!CheckInputFunctions.checkAnswerYesOrNo(out validatedAnswer))
         {
             Console.WriteLine("Skriv Y (yes) or N (no)");
         }
         if (validatedAnswer == "y")
         {
-            list.Add(new Item(validatedName, validatedPrice));                //create a new item and add it to the list object
+            try
+            {
+                list.Add(new Item(validatedName, validatedPrice));                //create a new item and add it to the list object
+            }
+            //Catches negative values
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($"Otillåtet pris, får inte vara negativt: {ex.Message}");
+            }
+            //Catches null or blankspace name (redundant, since the name has been validated already), but added here for the sake of the task in kunskapskontroll 2 - del 2
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Otillåtet namn, måste innehålla tecken: {ex.Message}");
+            }
+
         }
         else if (validatedAnswer == "n")
         {

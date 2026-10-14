@@ -208,3 +208,8 @@ According to the instructions, no catch{} can be empty. The current ShoppingList
 Instanciation of a new Item should prevent:
 (I) empty name - throwing ArgumentException
 (II) negative price - throwing ArgumentOutOfRangeException
+
+**Patch task 1:**\
+Item class has been updated, the constructor could in theory throw the corresponding exceptions when they occur. In reality the item.constructor will only throw ArgumentOutOfRangeException when the user tries to add an item with a negative price. The handling of null/whitespace name was added in patch 9 above.
+
+Thoughts-lesson learned: using System try-catch is in theory less efficient than throwing exceptions with if-statements. The former would throw an exception after the error occured, and the latter prevents the error to occur. In this example the IF-induced exception prevented an invalid object to be created. A simple if-statement could have done the job marginally better by preventing an invalid user input at an earlier stage.

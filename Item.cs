@@ -6,7 +6,20 @@ class Item //item object that will be stored in the ShoppingList (list). Item co
 
     public Item(string name, int price) //Constructor that pass on 2 arguments through 2 parameters (name and price) when an Item object is created
     {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Name must contain characters.", nameof(name));
+        }
         Name = name;
+
+        if (price < 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(price),
+                price,
+                "Varans pris kan inte vara negativt1"
+            );
+        }
         Price = price;
     }
 
