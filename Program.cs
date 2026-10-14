@@ -30,8 +30,7 @@ do
     //Test for valid input, integer between 1 and 5
     if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
     {
-        Console.WriteLine("______________________________________________________");
-        Console.WriteLine("Invalid choice, choose a valid menu number");
+        Console.WriteLine("\n\nInvalid choice, choose a valid menu number\n");
     }
     else if (choice == 1)
     {
@@ -52,13 +51,11 @@ do
         }
         else if (boolOut == false)
         {
-            Console.WriteLine("______________________________________________________");
-            Console.WriteLine("Invalid input, key in an existing row in the list to remove an item");
+            Console.WriteLine("\n\nInvalid input, key in an existing row in the list to remove an item\n");
         }
         else
         {
-            Console.WriteLine("______________________________________________________");
-            Console.WriteLine($"Row number {intOut} does not exist, key in an existing row in the list to remove an item");
+            Console.WriteLine($"\n\nRow number {intOut} does not exist, key in an existing row in the list to remove an itemn\n");
         }
     }
     else if (choice == 3)
@@ -73,11 +70,11 @@ do
 
         if (found == null)
         {
-            Console.WriteLine("Varan finns inte i listan.");
+            Console.WriteLine("\n\nVaran finns inte i listan.\n");
         }
         else
         {
-            Console.WriteLine($"Hittade: {found}");
+            Console.WriteLine($"\n\nHittade: {found}\n");
         }
     }
     else if (choice == 5)

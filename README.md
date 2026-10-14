@@ -143,7 +143,8 @@ No error message, and not system crash - but the functionality is compromised du
 **How to replicate error 7:**\
 -start the program: dotnet run
 
-**Patch:**\
+**Patch 7:**\
+Bugg caused by confusion between actual list-index (starts at zero) and row number (starts at 1) has been corrected for. The first item in the list is now included in Total price.
 
 ### Error 8 - Invisible items in the list
 No error message, and no system crash - but this bugg causes invicible row number and item name for all but the last item in the list. Caused by splitting on new Line Character (\n) in the ShoppingList.Load() method. In Windows, a row with text is ended with a Carriage Return (\r) together with a New Line character. Thus, splitting on new line character only will leave the Carriage Return after each item, causing all but the last one to appear as hidden when being printed to the console.
@@ -154,9 +155,33 @@ No error message, and no system crash - but this bugg causes invicible row numbe
 **Patch:**\
 Changed to split on "\r\n" instead of only on \n
 
-### Error 9 - Possible to save null or white-space items
+
+### Error 9 - Possible to save items with invalid (non-numeric/negative prices)
 
 **How to replicate error 9:**\
 -start the program: dotnet run
 
 **Patch:**\
+
+### Error 10 - Find items is case-sensitive
+
+**How to replicate error 9:**\
+-start the program: dotnet run
+
+**Patch:**\
+
+### Error 11 - Not possible to find similar items with the same name (but different prices)
+
+**How to replicate error 9:**\
+-start the program: dotnet run
+-choose option 1, add an item and price
+-choose option 1, add the same item again
+-choose option 4, search for that the item
+Result - only one item (the item with lowest row number) will be found
+
+**Patch 11:**\
+This patch will at the time of writing not be implemented, just documented. The bug is not critical - and out of scope of this exercise. This error does not cause a program crash, and it is easily avoided by the user by choosing different item names for similar items but with different prices (i.e. for two similar "Mjölk" items, use "SkåneMejeriet standard Mjölk" and "Arla standard Mjölk"). For duplicates of identical items, the user could easily key in i.e. 2xMilk.
+
+However, there is an easy fix to this error, should there be enough time and need. In the foreach loop, search through each item in items list. If a specific item.Name is found, store it and pair it with its item.Price (i.e. in a dictionary), or store all item objects in a list. This dictionary or list of hits will form the basis for the format-choise on how the results will be displayed. A format could i.e. be the name of the item, its price, and how many hits, followed by another item with the same name but with a different price.
+
+## Part 2 - Scaling/Add more features

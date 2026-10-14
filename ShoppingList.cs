@@ -93,7 +93,7 @@ class ShoppingList
         {
         }
 
-        Console.WriteLine("Listan är sparad.");
+        Console.WriteLine("\n\nListan är sparad.\n");
     }
 
     // Reads the file back into the list.
