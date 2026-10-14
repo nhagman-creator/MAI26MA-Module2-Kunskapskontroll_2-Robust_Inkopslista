@@ -152,7 +152,7 @@ No error message, and no system crash - but this bugg causes invicible row numbe
 **How to replicate error 8:**\
 -start the program: dotnet run
 
-**Patch:**\
+**Patch 8:**\
 Changed to split on "\r\n" instead of only on \n
 
 
@@ -164,22 +164,24 @@ Changed to split on "\r\n" instead of only on \n
 -key in null/whitespace as name
 -key in non-numeric characters as price 
 
-**Patch:**\
+**Patch 9:**\
 Added 3 external functions that check for valid string, integer, or options (yes or no) to prevent incorrect user input. Added an additional user confirmation to choose to add, or cancel adding the item to th elist.
 
 Note: negative values accepted for now, this will be patched in the second part of Kunskapskontroll 2, del 2 - bygg ut programmet.
 
 ### Error 10 - Find items is case-sensitive
 
-**How to replicate error 9:**\
+**How to replicate error 10:**\
 -start the program: dotnet run
+-choose menu option 4 to search for an item
+-type the name of an existing item in the list, change one or more characters to upper/lower case
 
-**Patch:**\
+**Patch 10:**\
 Find item is now case-insensitive (added string.ToLower() on both sides of the comparison)
 
 ### Error 11 - Not possible to find similar items with the same name (but different prices)
 
-**How to replicate error 9:**\
+**How to replicate error 11:**\
 -start the program: dotnet run
 -choose option 1, add an item and price
 -choose option 1, add the same item again
@@ -191,4 +193,18 @@ This patch will at the time of writing not be implemented, just documented. The 
 
 However, there is an easy fix to this error, should there be enough time and need. In the foreach loop, search through each item in items list. If a specific item.Name is found, store it and pair it with its item.Price (i.e. in a dictionary), or store all item objects in a list. This dictionary or list of hits will form the basis for the format-choise on how the results will be displayed. A format could i.e. be the name of the item, its price, and how many hits, followed by another item with the same name but with a different price.
 
+### Error 12 - Save to file catches all exceptions, and ignores all errors
+
+**How to replicate error 12:**\
+-No successfull attempts to provoke any of the possible exceptions - except by changing the path (which is hardcoded) to a non existing folder. This cant normally be triggered from just running the program without editing the hardcoded path. However, since an absolute path was provided to prevent the described debugger induced error 1 above, one could assume that by running this program in another environemnt (computer), a specific DirectoryNotFoundException might be thrown when trying to save a file with the wrong absolute path.
+
+**Patch 12:**\
+According to the instructions, no catch{} can be empty. The current ShoppingList.Save() contains a an empty catch, that will ignore all errors. To adhere to the rules, I have decided to specify a File and System I/O Error (DirectoryNotFoundException) in the ShoppingList.Save() method.
+
 ## Part 2 - Scaling/Add more features
+
+### Task 1
+**Make a robust Item class**\ 
+Instanciation of a new Item should prevent:
+(I) empty name - throwing ArgumentException
+(II) negative price - throwing ArgumentOutOfRangeException

@@ -89,8 +89,11 @@ class ShoppingList
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
         }
-        catch
+        catch (DirectoryNotFoundException ex)
         {
+            //Executed only if the folder path is missing/invalid
+            Console.WriteLine($"Error: target folder could not be found.");
+            Console.WriteLine($"Technical Details: {ex.Message}");
         }
 
         Console.WriteLine("\n\nListan är sparad.\n");
