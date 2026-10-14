@@ -97,6 +97,9 @@ Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
 **Patch 4:**\
 Code updated for proactive check of user input for valid integers within the correct list range, handles null/whitespace and characters that are not numeric without program crash
 
+**Patch 4.1**\
+Bug in patch 4 that does not allow removal of the last item in the shoppinglist - fixed by allowing last index in the list to be removed.
+
 ### Error 5 message - Removal of non-existing item (non-numeric character or null)
 Unhandled exception. System.FormatException: The input string '' was not in a correct format.
    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)

@@ -42,7 +42,7 @@ do
         Console.Write("Nummer: ");
         var (boolOut, intOut) = CheckInputFunctions.checkInputIsInteger(); //static function to check for integer
 
-        if (boolOut == true && intOut < list.items.Count && intOut > 0) //if integer, and if exist then
+        if (boolOut == true && intOut <= list.items.Count && intOut > 0) //if integer, and if exist then
         {
             list.RemoveAt(intOut);
         }
