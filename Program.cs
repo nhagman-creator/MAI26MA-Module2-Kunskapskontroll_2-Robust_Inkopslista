@@ -30,32 +30,59 @@ do
     //Test for valid input, integer between 1 and 5
     if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
     {
-        Console.WriteLine("\n\nInvalid choice, choose a valid menu number\n");
+        Console.WriteLine("\n\nOgiltigt val, välj ett nummer under menyn\n");
     }
     else if (choice == 1)
     {
         Console.Write("Namn: ");
-        string name = Console.ReadLine();
+        //Check for invalid input characters (null/whitespace) - while not valid
+        string validatedName = "";
+        while (!CheckInputFunctions.checkInputIsString(out validatedName))
+        {
+            Console.WriteLine("Ogiltigt namn. Namnet måste inehålla bokstäver eller siffror. Försök igen.");
+            Console.Write("Namn:");
+        }
+
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
-        list.Add(new Item(name, price));                //create a new item and add it to the list object
+        int validatedPrice = 0;
+        while (!CheckInputFunctions.checkInputIsInteger(out validatedPrice))
+        {
+            Console.WriteLine("Ogiltigt pris. Endast numeriska värden tillåtna. Försök igen.");
+            Console.Write("Pris:");
+        }
+
+        Console.WriteLine($"Vill du lägga till {validatedName} - {validatedPrice} till listan? (y/n)");
+        string validatedAnswer = "";
+        while (!CheckInputFunctions.checkAnswerYesOrNo(out validatedAnswer))
+        {
+            Console.WriteLine("Skriv Y (yes) or N (no)");
+        }
+        if (validatedAnswer == "y")
+        {
+            list.Add(new Item(validatedName, validatedPrice));                //create a new item and add it to the list object
+        }
+        else if (validatedAnswer == "n")
+        {
+            break;
+        }
+        else Console.WriteLine("Oväntat fel - inget sparades, försök igen");
     }
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        var (boolOut, intOut) = CheckInputFunctions.checkInputIsInteger(); //static function to check for integer
+        bool boolInt = CheckInputFunctions.checkInputIsInteger(out int validatedInteger); //Check for invalid input characters (null/whitespace/non-numeric)
 
-        if (boolOut == true && intOut <= list.items.Count && intOut > 0) //if integer, and if exist then
+        if (boolInt == true && validatedInteger <= list.items.Count && validatedInteger > 0) //if integer is valid, and if it is within the range then
         {
-            list.RemoveAt(intOut);
+            list.RemoveAt(validatedInteger);
         }
-        else if (boolOut == false)
+        else if (boolInt == false)
         {
-            Console.WriteLine("\n\nInvalid input, key in an existing row in the list to remove an item\n");
+            Console.WriteLine("\n\nOgiltiga tecken. Skriv in en giltig nummer för att ta bort varan från listan.\n");
         }
         else
         {
-            Console.WriteLine($"\n\nRow number {intOut} does not exist, key in an existing row in the list to remove an itemn\n");
+            Console.WriteLine($"\n\nVaran med numret {validatedInteger} existerar ej. Skriv ett giltigt nummer för att ta bort varan från listan.\n");
         }
     }
     else if (choice == 3)

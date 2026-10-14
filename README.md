@@ -156,12 +156,18 @@ No error message, and no system crash - but this bugg causes invicible row numbe
 Changed to split on "\r\n" instead of only on \n
 
 
-### Error 9 - Possible to save items with invalid (non-numeric/negative prices)
+### Error 9 - Possible to save items with invalid (non-numeric or negative) prices
 
 **How to replicate error 9:**\
 -start the program: dotnet run
+-choose option 1, to add an item
+-key in null/whitespace as name
+-key in non-numeric characters as price 
 
 **Patch:**\
+Added 3 external functions that check for valid string, integer, or options (yes or no) to prevent incorrect user input. Added an additional user confirmation to choose to add, or cancel adding the item to th elist.
+
+Note: negative values accepted for now, this will be patched in the second part of Kunskapskontroll 2, del 2 - bygg ut programmet.
 
 ### Error 10 - Find items is case-sensitive
 

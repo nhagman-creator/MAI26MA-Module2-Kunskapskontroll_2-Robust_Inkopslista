@@ -1,31 +1,57 @@
 static internal class CheckInputFunctions
 {
-    //Function to check for valid user input (string). Parameter = question, return true or false.
-    static internal (bool, string) checkInputIsString()
+    //Function to check for valid user input (string). Return true or false and the value.
+    static internal bool checkInputIsString(out string validatedInput)
     {
         string input = Console.ReadLine();
         //Check for invalid input characters (null/whitespace)
         if (!string.IsNullOrWhiteSpace(input))
         {
-            return (false, input);
+            validatedInput = input;
+            return true;
         }
         else
         {
-            return (true, input);
+            validatedInput = input;
+            return false;
         }
     }
 
-    //Function to check for valid user input (integer). Parameter = question, return true or false.
-    static internal (bool, int) checkInputIsInteger()
+    //Function to check for valid user input (integer). Return true or false and the value.
+    static internal bool checkInputIsInteger(out int validatedInteger)
     {
-        //Check for invalid input characters (null/whitespace/non-numeric/negatives or zeroes)
-        if (!int.TryParse(Console.ReadLine(), out int Int) /*&& Int > 0*/)
+        //Check for invalid input characters (null/whitespace/non-numeric)
+        if (int.TryParse(Console.ReadLine(), out int Int) /*&& Int > 0*/)
         {
-            return (false, Int);
+            validatedInteger = Int;
+            return true;
         }
         else
         {
-            return (true, Int);
+            validatedInteger = Int;
+            return false;
+        }
+    }
+
+    //Function to check for valid user input (Y(es) or N(o)) Return true or false and the value.
+    static internal bool checkAnswerYesOrNo(out string validatedAnswer)
+    {
+        string input = Console.ReadLine();
+        //Check for invalid input characters (null/whitespace)
+        if (!string.IsNullOrWhiteSpace(input) && (input.ToLower() == "y" || input.ToLower() == "yes"))
+        {
+            validatedAnswer = input.ToLower();
+            return true;
+        }
+        else if (!string.IsNullOrWhiteSpace(input) && (input.ToLower() == "n" || input.ToLower() == "no"))
+        {
+            validatedAnswer = input.ToLower();
+            return true;
+        }
+        else
+        {
+            validatedAnswer = input.ToLower();
+            return false;
         }
     }
 }
