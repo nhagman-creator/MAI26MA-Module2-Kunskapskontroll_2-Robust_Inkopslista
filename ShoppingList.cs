@@ -8,7 +8,15 @@ class ShoppingList
 
     public ShoppingList(string path)
     {
-        this.path = path;   //Constructor accept the path parameter. The argument "path" is defined for each ShoppingList object that is created, and stored in the private field "path" (or this.path)
+        //Check if file exist, else create a new one
+        if (File.Exists(path))
+        {
+            this.path = path;   //Constructor accept the path parameter. The argument "path" is defined for each ShoppingList object that is created, and stored in the private field "path" (or this.path)
+        }
+        else
+        {
+            this.path = "items.txt";
+        }
     }
 
     public void Add(Item item)  //method used to make changes to the private "items" field (the actual shopping list)
@@ -57,6 +65,14 @@ class ShoppingList
         }
 
         Console.WriteLine($"Totalt: {Total()} kr");
+    }
+
+    // Writes a new empty file items.txt (if it does not already exist).
+    public void NewFile()
+    {
+        //could be wrapped with try-catch, but the path is current working directory, and it is unlikely that another program will use the same items.txt file, or that the the shoppinglist will cause a full disk
+        Console.WriteLine("Creating new empty items.txt file, to read from and write to");
+        File.WriteAllText(path, "");
     }
 
     // Writes one item per line, as "price;name".

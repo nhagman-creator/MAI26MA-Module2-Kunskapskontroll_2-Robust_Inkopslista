@@ -1,7 +1,11 @@
 String path = @"C:\VScode\Kunskapskontroll 2\items.txt";
 
-ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
-list.Load(); //First the ShoppingList method "Load()" is called, its purpose is to read the external text file containing unformatted items data to be added to the object shoppinglist
+ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a path that points to (if existing) a textfile that contain unformatted shoppinglist data, or (if it does not exist) the empty .txt-file that will created
+
+//Check if existing file
+if (File.Exists(path)) list.Load(); //First the ShoppingList method "Load()" is called, its purpose is to read the external text file containing unformatted items data to be added to the object shoppinglist
+
+else list.NewFile(); //call a method that creates a new file in current working directory
 
 int choice;
 bool invalidChoice = true;

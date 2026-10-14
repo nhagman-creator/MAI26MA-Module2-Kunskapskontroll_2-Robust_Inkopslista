@@ -130,7 +130,8 @@ File name: 'C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS stu
 -change the name of items.txt file
 -start the program: dotnet run
 
-**Patch:**\
+**Patch: 6**\
+Added a method in class ShoppingList that adds a new file empty items.txt file if it does not already exist
 
 ### Error 7 - Incomplete summation of Total costs
 No error message, and not system crash - but the functionality is compromised due to incomplete summation of the total costs. It is clear that the "Totalt" field with the total sum of costs show to low value. When inspecting the code (public int Total() method in the class ShoppingList), it is clear that index 0 (item 1 in the list) has been excluded from the total sum.
