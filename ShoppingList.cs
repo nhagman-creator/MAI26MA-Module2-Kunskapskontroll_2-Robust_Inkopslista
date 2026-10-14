@@ -1,7 +1,9 @@
 // Holds the items and takes care of loading and saving them.
+using System.Dynamic;
+
 class ShoppingList
 {
-    private List<Item> items = new List<Item>();    //private field in the ShoppingList object. Used to store Item objects (that contain name and price fields). Set by the Add method
+    internal List<Item> items = new List<Item>();    //internal field in the ShoppingList object. Used to store Item objects (that contain name and price fields). Set by the Add method
     private string path;    //private field that is set by the constructor 
 
     public ShoppingList(string path)

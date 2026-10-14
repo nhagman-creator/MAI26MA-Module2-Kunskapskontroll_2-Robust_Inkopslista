@@ -52,10 +52,10 @@ An unhandled exception of type 'System.IO.FileNotFoundException' occurred in Sys
 **How to replicate error 1:**\
 -start the program in debug mode - F5
 
-**Patch:**\
+**Patch 1:**\
 By providing the full path to "items.cs" as argument to Shoppinglist (instead of the original relative path).
 
-Note: This error does not seem to be critical and it appears only during debugging mode. At the time of writing it is not clear if it is a debugger-artifact. This is however an unexpected behaviour and by adhering to a good developer coding practise, this potential problem has been patched. Also, this error makes prevents using the debugger to enter the shoppinglist.load() method, and makes it hard to access the values within the foreach loop. After fixing this debugger induced error it was possible to see that windows introduce a "\r" in addition to a newline character. The \r is not split away, and it is kept behind all item names (except the last one in the list), which results in Error 8 below. 
+Note: This error does not seem to be critical and it appears only during the debugging mode. At the time of writing it is not clear if it is a debugger-artifact. This is however an unexpected behaviour and by adhering to a good developer coding practise, this potential problem has been patched. Also, this error prevents using the debugger to enter the shoppinglist.load() method, and makes it harder to access the values within the foreach loop. After fixing this debugger induced error it was possible to see that windows introduce a "\r" in addition to a newline character. The \r is not splitted away, and it is trails all item names (except the last one in the list), which results in Error 8 below. 
 
 ## Errors:
 ### Error 2 message - New line in items.txt file not accepted as valid data
@@ -67,8 +67,8 @@ Unhandled exception. System.IndexOutOfRangeException: Index was outside the boun
 -add preceeding/trailing whitespace or a new blank row(s) to the items.txt file
 -start the program: dotnet run
 
-**Patch:**\
-The trailing blankline in items.txt cause an error when the program expects to read a new line containing an item-name and a price separated by ";". This has been fixed by ignoring IsNullOrWhiteSpace lines. The ShoppingList.Load() method has also been upgraded to be more robust by trimming for preceeding and trailing whitespace for item names and price, and by skipping any other rows that does not contain (split) into an item and a price.
+**Patch 2:**\
+The trailing blankline in items.txt cause an error when the program expects to read a new line containing an item-name and a price separated by ";". This has been fixed by ignoring IsNullOrWhiteSpace lines. The ShoppingList.Load() method has also been upgraded to be more robust by trimming (using trim) for preceeding and trailing whitespace for item names and price, and by skipping any other rows that does not contain (split) into an item and a price.
 
 ### Error 3 message - Invalid character in menu-choice
 Unhandled exception. System.FormatException: The input string 'b' was not in a correct format.
@@ -80,7 +80,7 @@ Unhandled exception. System.FormatException: The input string 'b' was not in a c
 -start the program: dotnet run
 -Try makea  menu-choice, key in any invalid character that is not a number (including null)
 
-**Patch:**\
+**Patch 3:**\
 Code updated for proactive check of valid integer (int.Try.Parse) or valid range of numbers (1-5)
 
 ### Error 4 message - Removal of non-existing item (numeric character)
@@ -94,7 +94,8 @@ Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
 -Choose menu-option 2 to remove an item
 -Choose a number that does not exist
 
-**Patch:**\
+**Patch 4:**\
+Code updated for proactive check of user input for valid integers within the correct list range, handles null/whitespace and characters that are not numeric without program crash
 
 ### Error 5 message - Removal of non-existing item (non-numeric character or null)
 Unhandled exception. System.FormatException: The input string '' was not in a correct format.
@@ -107,7 +108,7 @@ Unhandled exception. System.FormatException: The input string '' was not in a co
 -Choose menu-option 2 to remove an item
 -Choose a non-numeric character (including null)
 
-**Patch:**\
+**Patch 5:**\
 
 ### Error 6 - Crash upon non-existing filename "items.txt"
 Unhandled exception. System.IO.FileNotFoundException: Could not find file 'C:\Users\MjukvaruutvecklareAI\Documents\Mjukvaruutvecklare AI\VS studio\Project\Module-2\Kunskapskontroll 2\items.txt'.

@@ -1,5 +1,3 @@
-using System.Xml.Serialization;
-
 String path = @"C:\VScode\Kunskapskontroll 2\items.txt";
 
 ShoppingList list = new ShoppingList(path); //Create the object ShoppingList, the argument is a textfile that contain unformatted shoppinglist data
@@ -10,9 +8,14 @@ bool invalidChoice = true;
 
 do
 {
-    Console.WriteLine();
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("Shopping Lista:");
+    Console.WriteLine("----------------------------------");
     list.Print();
     Console.WriteLine();
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("Menu:");
+    Console.WriteLine("----------------------------------");
     Console.WriteLine("1. Lägg till vara");
     Console.WriteLine("2. Ta bort vara");
     Console.WriteLine("3. Spara");
@@ -24,7 +27,7 @@ do
     if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
     {
         Console.WriteLine("______________________________________________________");
-        Console.WriteLine("Invalid choice, choose a valid number");
+        Console.WriteLine("Invalid choice, choose a valid menu number");
     }
     else if (choice == 1)
     {
@@ -37,8 +40,22 @@ do
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
-        list.RemoveAt(number);                          //Note - parameter nummer and list index might be incongruent (list nr - 1 = index)
+        var (boolOut, intOut) = CheckInputFunctions.checkInputIsInteger(); //static function to check for integer
+
+        if (boolOut == true && intOut < list.items.Count && intOut > 0) //if integer, and if exist then
+        {
+            list.RemoveAt(intOut);
+        }
+        else if (boolOut == false)
+        {
+            Console.WriteLine("______________________________________________________");
+            Console.WriteLine("Invalid input, key in an existing row in the list to remove an item");
+        }
+        else
+        {
+            Console.WriteLine("______________________________________________________");
+            Console.WriteLine($"Row number {intOut} does not exist, key in an existing row in the list to remove an item");
+        }
     }
     else if (choice == 3)
     {
