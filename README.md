@@ -18,6 +18,10 @@
 
 For more detailed info on all features that the program need to fullfill, refer to: https://nbi-handelsakademin.learnpoint.se/GroupForms/Group_LearningContent_Item.aspx?Id=7589&ItemId=25589#modal
 
+Note 1: All buggs that can easily be resolved using a proactive approach (prevent the error to occur with i.e. IF statements) has been prioritezed above try-catch approaches.
+
+Note 2: No other libraries has been used but the built-in root namespace Systems-tools/functionalites.
+
 ## Part 1 - Debugging
 **Current system:**\
 <u>Visual Studio Code</u>\
