@@ -6,6 +6,8 @@ class ShoppingList
     internal List<Item> items = new List<Item>();    //internal field in the ShoppingList object. Used to store Item objects (that contain name and price fields). Set by the Add method
     private string path;    //private field that is set by the constructor 
 
+    internal int maxBudget { get; set; } = 200;//auto property Price that wwrap the hidden fieldthat store the budget-limit, preset to 200
+
     public ShoppingList(string path)
     {
         //Check if file exist, else create a new one
@@ -21,6 +23,14 @@ class ShoppingList
 
     public void Add(Item item)  //method used to make changes to the private "items" field (the actual shopping list)
     {
+        if (item.Price + Total() > maxBudget)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(item.Price),                         //skickar parameternamn "Price"
+                item.Price,
+                "Varan spräcker budgeten. Varan lades inte till. "
+            );
+        }
         items.Add(item);
     }
 

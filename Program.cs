@@ -69,7 +69,14 @@ do
             //Catches negative values
             catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine($"Otillåtet pris, får inte vara negativt: {ex.Message}");
+                if (ex.ParamName == "price")
+                {
+                    Console.WriteLine($"Priset får inte vara negativt. Teknisk info: {ex.Message}");
+                }
+                else if (ex.ParamName == "Price")
+                {
+                    Console.WriteLine($"Varan är för dyr. Teknisk info: {ex.Message}");
+                }
             }
             //Catches null or blankspace name (redundant, since the name has been validated already), but added here for the sake of the task in kunskapskontroll 2 - del 2
             catch (ArgumentException ex)

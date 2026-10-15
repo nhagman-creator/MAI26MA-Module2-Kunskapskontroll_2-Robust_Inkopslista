@@ -15,9 +15,9 @@ class Item //item object that will be stored in the ShoppingList (list). Item co
         if (price < 0)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(price),
+                nameof(price),                              //Sends teh parametername (ex.paramName) "price"
                 price,
-                "Varans pris kan inte vara negativt1"
+                "Varans pris kan inte vara negativt."
             );
         }
         Price = price;

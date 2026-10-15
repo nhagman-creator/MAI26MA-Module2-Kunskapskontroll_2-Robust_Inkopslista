@@ -203,7 +203,7 @@ According to the instructions, no catch{} can be empty. The current ShoppingList
 
 ## Part 2 - Scaling/Add more features
 
-### Task 1
+### Task 1 - Item protects itself (Item skall skydda sig själv)
 **Make a robust Item class**\ 
 Instanciation of a new Item should prevent:
 (I) empty name - throwing ArgumentException
@@ -213,3 +213,10 @@ Instanciation of a new Item should prevent:
 Item class has been updated, the constructor could in theory throw the corresponding exceptions when they occur. In reality the item.constructor will only throw ArgumentOutOfRangeException when the user tries to add an item with a negative price. The handling of null/whitespace name was added in patch 9 above.
 
 Thoughts-lesson learned: using System try-catch is in theory less efficient than throwing exceptions with if-statements. The former would throw an exception after the error occured, and the latter prevents the error to occur. In this example the IF-induced exception prevented an invalid object to be created. A simple if-statement could have done the job marginally better by preventing an invalid user input at an earlier stage.
+
+### Task 2 - The list shall have a max budget (Listan skall ha ett budgettak)
+**Add feature, max-budget**\ 
+ShoppingList has a new feature, a limited budget. The total price is not allowed to exceed the limit. Addition of an item that exceed the limit is not allowed.
+
+**Patch task 2:**\
+There are different options on how to implement this feature in terms of the (I) type of try-catch, (II) a pure if-statement that return i.e. false, and (III) where to implement the code. Implementing a test before adding an item (that exceeds the budget) to the list is more efficient than testing the total price after adding an item. The latter would require removal of that item from the list. The choice of letting list.Add() throw an exception, or an If-statement returning i.e. false, falls down to the fact that a try-catch was already implemented in the list.Add() in program.cs. Thus, the choice to add another catch in the existing program.cs try-catch was implemented.
