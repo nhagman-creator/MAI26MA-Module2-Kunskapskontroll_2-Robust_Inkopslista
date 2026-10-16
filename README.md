@@ -220,3 +220,68 @@ ShoppingList has a new feature, a limited budget. The total price is not allowed
 
 **Patch task 2:**\
 There are different options on how to implement this feature in terms of the (I) type of try-catch, (II) a pure if-statement that return i.e. false, and (III) where to implement the code. Implementing a test before adding an item (that exceeds the budget) to the list is more efficient than testing the total price after adding an item. The latter would require removal of that item from the list. The choice of letting list.Add() throw an exception, or an If-statement returning i.e. false, falls down to the fact that a try-catch was already implemented in the list.Add() in program.cs. Thus, the choice to add another catch in the existing program.cs try-catch was implemented.
+
+
+## Class diagram after changes
+
+```mermaid
+classDiagram
+    direction LR
+
+    class Program {
+        <<top-level statements>>
+        -string path
+        -ShoppingList list
+        -int choice
+        -bool invalidChoice
+        +Main(string[] args)$
+    }
+
+    class ShoppingList {
+        ~List~Item~ items
+        -string path
+        ~int maxBudget = 200
+        +ShoppingList(string path)
+        +Add(Item item) void
+        +RemoveAt(int number) void
+        +Total() int
+        +Find(string name) Item
+        +Print() void
+        +NewFile() void
+        +Save() void
+        +Load() void
+    }
+
+    class Item {
+        +string Name
+        +int Price
+        +Item(string name, int price)
+        +ToString() string
+    }
+
+    class CheckInputFunctions {
+        <<static>>
+        ~checkInputIsString(out string validatedInput)$ bool
+        ~checkInputIsInteger(out int validatedInteger)$ bool
+        ~checkAnswerYesOrNo(out string validatedAnswer)$ bool
+    }
+
+    Program --> "1" ShoppingList : creates / uses
+    Program ..> Item : creates
+    Program ..> CheckInputFunctions : validates input
+    ShoppingList "1" o-- "0..*" Item : items
+```
+
+## Relationships
+
+| From | To | Type | Description |
+|---|---|---|---|
+| Program | ShoppingList | Association (1) | Creates one `ShoppingList` from the file path and calls its methods from the menu. |
+| Program | Item | Dependency | Creates new `Item` objects from validated user input (menu choice 1). |
+| Program | CheckInputFunctions | Dependency | Uses the static helpers to validate name, price, list number and yes/no answers. |
+| ShoppingList | Item | Aggregation (1 to 0..*) | Holds the items in `List<Item> items`; `Load()` creates items from `items.txt`. |
+
+## Constraints (exceptions)
+
+- `Item(name, price)` throws `ArgumentException` if `name` is null/whitespace, and `ArgumentOutOfRangeException` if `price < 0`.
+- `ShoppingList.Add(item)` throws `ArgumentOutOfRangeException` if `item.Price + Total() > maxBudget`.
