@@ -88,7 +88,7 @@ do
         }
         else if (validatedAnswer == "n")
         {
-            break;
+            Console.WriteLine("\nVaran lades inte till\n");
         }
         else Console.WriteLine("Oväntat fel - inget sparades, försök igen");
     }
