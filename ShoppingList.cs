@@ -1,6 +1,4 @@
 // Holds the items and takes care of loading and saving them.
-using System.Dynamic;
-
 class ShoppingList
 {
     internal List<Item> items = new List<Item>();    //internal field in the ShoppingList object. Used to store Item objects (that contain name and price fields). Set by the Add method
@@ -77,13 +75,13 @@ class ShoppingList
         Console.WriteLine($"Totalt: {Total()} kr");
     }
 
-    // Writes a new empty file items.txt (if it does not already exist).
+/*    // Writes a new empty file items.txt (if it does not already exist).
     public void NewFile()
     {
         //could be wrapped with try-catch, but the path is current working directory, and it is unlikely that another program will use the same items.txt file, or that the the shoppinglist will cause a full disk
         Console.WriteLine("Creating new empty items.txt file, to read from and write to");
         File.WriteAllText(path, "");
-    }
+    }*/
 
     // Writes one item per line, as "price;name".
     public void Save()

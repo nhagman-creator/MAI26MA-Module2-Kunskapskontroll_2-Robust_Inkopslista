@@ -1,11 +1,11 @@
-# Title: Courses and Students - Kunskapskontroll B
+# Title: Courses and Students - Kunskapskontroll 2
 
 
 #### **Creator:**       Arne HAgman
 #### **Date:**          23Sep2025
 #### **Program:**       MAI26MA
 #### **Course:**        Module II - Programmering och objektorienterad utveckling i C-sharp
-#### **Assignment:**    Kunskapskontroll 3
+#### **Assignment:**    Kunskapskontroll 2
 
 #### **Description:** The main tasks are:
 1)  **Fixing the program** - to debugg a program "shoppinglist" with (at the least) six known errors;
@@ -60,6 +60,18 @@ An unhandled exception of type 'System.IO.FileNotFoundException' occurred in Sys
 By providing the full path to "items.cs" as argument to Shoppinglist (instead of the original relative path).
 
 Note: This error does not seem to be critical and it appears only during the debugging mode. At the time of writing it is not clear if it is a debugger-artifact. This is however an unexpected behaviour and by adhering to a good developer coding practise, this potential problem has been patched. Also, this error prevents using the debugger to enter the shoppinglist.load() method, and makes it harder to access the values within the foreach loop. After fixing this debugger induced error it was possible to see that windows introduce a "\r" in addition to a newline character. The \r is not splitted away, and it is trails all item names (except the last one in the list), which results in Error 8 below. 
+
+**Patch 1 - UPDATE**\
+Absolute path was reverted to relative path to items.txt
+Knowing that this was a part of the task - to make the debugger find the working directory (and not a bugg in my debugger as I thought when one of the instructor told me that he had not seen the problem before). I checked with the AI-claude and the instructions to make the changes is to create create a launch .json file. Then in the template these lines are added: 
+
+"program": "${workspaceFolder}/bin/Debug/net10.0/Shopping.dll",
+"cwd": "${workspaceFolder}",
+"console": "integratedTerminal"
+
+save, pick the configuration in teh Run and Debug.
+
+NEvertheless, the reverted path from an absolute path to a relative path should make it work on any computer now.
 
 ## Errors:
 ### Error 2 message - New line in items.txt file not accepted as valid data
@@ -222,7 +234,7 @@ ShoppingList has a new feature, a limited budget. The total price is not allowed
 There are different options on how to implement this feature in terms of the (I) type of try-catch, (II) a pure if-statement that return i.e. false, and (III) where to implement the code. Implementing a test before adding an item (that exceeds the budget) to the list is more efficient than testing the total price after adding an item. The latter would require removal of that item from the list. The choice of letting list.Add() throw an exception, or an If-statement returning i.e. false, falls down to the fact that a try-catch was already implemented in the list.Add() in program.cs. Thus, the choice to add another catch in the existing program.cs try-catch was implemented.
 
 
-## Class diagram after changes
+## Class diagram after changes (AI generated - opens in Mermaid format)
 
 ```mermaid
 classDiagram
