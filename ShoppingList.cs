@@ -23,11 +23,8 @@ class ShoppingList
     {
         if (item.Price + Total() > maxBudget)
         {
-            throw new ArgumentOutOfRangeException(
-                nameof(item.Price),                         //skickar parameternamn "Price"
-                item.Price,
-                "Varan spräcker budgeten. Varan lades inte till. "
-            );
+            //The item itself is valid, but the list has no room left in the budget -> the list is in the wrong state for this operation
+            throw new InvalidOperationException("Varan spräcker budgeten. Varan lades inte till.");
         }
         items.Add(item);
     }

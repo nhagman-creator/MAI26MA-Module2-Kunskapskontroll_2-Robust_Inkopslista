@@ -67,17 +67,15 @@ do
             {
                 list.Add(new Item(validatedName, validatedPrice));                //create a new item and add it to the list object
             }
-            //Catches negative values
+            //Catches items that would exceed the budget (thrown by ShoppingList.Add)
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Varan är för dyr. Teknisk info: {ex.Message}");
+            }
+            //Catches negative values (thrown by the Item constructor)
             catch (ArgumentOutOfRangeException ex)
             {
-                if (ex.ParamName == "price")
-                {
-                    Console.WriteLine($"Priset får inte vara negativt. Teknisk info: {ex.Message}");
-                }
-                else if (ex.ParamName == "Price")
-                {
-                    Console.WriteLine($"Varan är för dyr. Teknisk info: {ex.Message}");
-                }
+                Console.WriteLine($"Priset får inte vara negativt. Teknisk info: {ex.Message}");
             }
             //Catches null or blankspace name (redundant, since the name has been validated already), but added here for the sake of the task in kunskapskontroll 2 - del 2
             catch (ArgumentException ex)
