@@ -75,13 +75,13 @@ class ShoppingList
         Console.WriteLine($"Totalt: {Total()} kr");
     }
 
-/*    // Writes a new empty file items.txt (if it does not already exist).
-    public void NewFile()
-    {
-        //could be wrapped with try-catch, but the path is current working directory, and it is unlikely that another program will use the same items.txt file, or that the the shoppinglist will cause a full disk
-        Console.WriteLine("Creating new empty items.txt file, to read from and write to");
-        File.WriteAllText(path, "");
-    }*/
+    /*    // Writes a new empty file items.txt (if it does not already exist).
+        public void NewFile()
+        {
+            //could be wrapped with try-catch, but the path is current working directory, and it is unlikely that another program will use the same items.txt file, or that the the shoppinglist will cause a full disk
+            Console.WriteLine("Creating new empty items.txt file, to read from and write to");
+            File.WriteAllText(path, "");
+        }*/
 
     // Writes one item per line, as "price;name".
     public void Save()
@@ -96,15 +96,18 @@ class ShoppingList
         try
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("\n\nListan är sparad.\n");
         }
-        catch (DirectoryNotFoundException ex)
+        catch (IOException ex)
         {
-            //Executed only if the folder path is missing/invalid
-            Console.WriteLine($"Error: target folder could not be found.");
-            Console.WriteLine($"Technical Details: {ex.Message}");
+            Console.WriteLine("Fel: listan kunde inte sparas.");
+            Console.WriteLine($"Teknisk info: {ex.Message}");
         }
-
-        Console.WriteLine("\n\nListan är sparad.\n");
+        catch (UnauthorizedAccessException ex)
+        {
+            Console.WriteLine("Fel: ej behörighet att spara filen");
+            Console.WriteLine($"Teknisk info: {ex.Message}");
+        }
     }
 
     // Reads the file back into the list.
